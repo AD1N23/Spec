@@ -46,6 +46,5 @@
 | [`wireframe.drawio`](Задание%202/wireframe.drawio) | draw.io | Три сценария работы с ботом в формате Telegram-чата |
 | [`wireframe.md`](Задание%202/wireframe.md) | Markdown + Mermaid | Навигационный поток и комментарии к сообщениям бота |
 
-### Ссылка на исходный код проекта
 
-Полный код бота: [github.com/AD1N23/tg-bot](https://github.com/AD1N23/tg-bot)
+![Wireframe](Задание%202/wireframe.png "Макет чата с ботом")
