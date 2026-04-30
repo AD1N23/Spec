@@ -1,0 +1,54 @@
+@startuml use_case
+skinparam ActorBackgroundColor #EEF4FF
+skinparam ActorBorderColor #3A6BC4
+skinparam UsecaseBackgroundColor #EEF4FF
+skinparam UsecaseBorderColor #3A6BC4
+skinparam ArrowColor #3A6BC4
+skinparam PackageBorderColor #7A9FD4
+skinparam PackageFontSize 14
+skinparam Nodesep 40
+skinparam Ranksep 50
+
+title Диаграмма вариантов использования — Telegram-бот учёта питания
+
+actor "Пользователь" as User
+
+rectangle "Telegram Bot (сейчас)" #F0F4FF {
+  usecase "Запустить бота (/start)" as UC1
+  usecase "Открыть главное меню (/menu)" as UC2
+  usecase "Добавить запись о еде\n(название + вес)" as UC3
+  usecase "Выбрать продукт\nиз нескольких совпадений" as UC4
+  usecase "Просмотреть отчёт за сегодня" as UC5
+  usecase "Просмотреть отчёт за вчера" as UC6
+  usecase "Удалить запись из отчёта" as UC7
+
+  UC3 ..> UC4 : <<extend>>\n[несколько совпадений]
+  UC5 ..> UC7 : <<include>>
+}
+
+rectangle "Telegram MiniApp (планируется)" #FFF0F4 {
+  usecase "Просмотреть отчёт за период" as MA1
+  usecase "Отследить динамику\nКБЖУ по дням" as MA2
+  usecase "Редактировать запись\nза любой день" as MA3
+  usecase "Добавить свой продукт в базу" as MA4
+  usecase "Установить дневную норму КБЖУ" as MA5
+  usecase "Экспортировать отчёт\n(PDF / Excel)" as MA6
+  usecase "Сменить цветовую тему" as MA7
+
+  MA1 ..> MA2 : <<include>>
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC5
+User --> UC6
+
+User --> MA1
+User --> MA3
+User --> MA4
+User --> MA5
+User --> MA6
+User --> MA7
+
+@enduml

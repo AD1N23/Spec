@@ -1,0 +1,78 @@
+@startuml sequence
+skinparam SequenceArrowColor #3A6BC4
+skinparam SequenceLifeLineBorderColor #3A6BC4
+skinparam SequenceParticipantBackgroundColor #EEF4FF
+skinparam SequenceParticipantBorderColor #3A6BC4
+skinparam SequenceActorBackgroundColor #EEF4FF
+skinparam SequenceActorBorderColor #3A6BC4
+skinparam NoteBackgroundColor #FFF9C4
+skinparam NoteBorderColor #B8860B
+skinparam SequenceGroupBackgroundColor #F0F4FF
+skinparam SequenceGroupBorderColor #7A9FD4
+
+title Диаграмма последовательности — ключевые сценарии бота
+
+actor "Пользователь" as User
+participant "Handler" as H
+participant "FoodService" as FS
+participant "Repository" as FR
+participant "MessageService" as MS
+
+== Сценарий 1: Добавление продукта (точное совпадение) ==
+
+User -> H : текст "Гречка 200"
+H -> H : ParseFoodInput()\n→ name="Гречка", weight=200
+H -> FS : PrepareFoodEntry("Гречка", 200)
+FS -> FS : findBestMatch() → точное совпадение
+FS -> FS : CalculatePortion(200, food)
+FS --> H : []FoodEntry{entry}
+H -> FR : SaveEntry(entry)
+FR --> H : nil
+H -> MS : SendSimpleMessage("✅ Гречка 200г — 272 ккал")
+MS --> User : подтверждение
+
+== Сценарий 2: Выбор из нескольких совпадений ==
+
+User -> H : текст "Творог 100"
+H -> FS : PrepareFoodEntry("Творог", 100)
+FS -> FS : findBestMatch() → 3 совпадения
+FS --> H : []FoodEntry{творог 2%, 5%, 9%}
+H -> H : pendingChoice[chatID] = entries
+H -> MS : GenerateChoiceKeyboard(entries)
+MS --> User : кнопки выбора
+
+User -> H : callback "choice:Творог 5%"
+H -> H : взять из pendingChoice
+H -> FS : CalculatePortion(100, food)
+FS --> H : порция
+H -> FR : SaveEntry(entry)
+FR --> H : nil
+H -> H : удалить pendingChoice[chatID]
+H -> MS : SendSimpleMessage("✅ Сохранено")
+MS --> User : подтверждение
+
+== Сценарий 3: Просмотр и редактирование отчёта ==
+
+User -> H : callback "daily_report"
+H -> FR : GetUserEntries(chatID, today)
+FR --> H : []FoodEntry
+H -> MS : GenerateDailyReport(entries)
+MS --> User : отчёт + кнопка "Редактировать"
+
+User -> H : callback "edit"
+H -> FR : GetUserEntries(chatID, today)
+FR --> H : []FoodEntry
+H -> MS : GenerateEditKeyboard(entries)
+MS --> User : список с кнопками удаления
+
+User -> H : callback "edit:42"
+H -> FR : RemoveEntry(42)
+FR --> H : nil
+H -> MS : обновить клавиатуру
+MS --> User : обновлённый список
+
+User -> H : callback "edit_finished"
+H -> MS : убрать кнопки, показать итог
+MS --> User : финальный отчёт
+
+@enduml

@@ -1,0 +1,82 @@
+@startuml activity
+skinparam ActivityBackgroundColor #EEF4FF
+skinparam ActivityBorderColor #3A6BC4
+skinparam ActivityFontSize 13
+skinparam ArrowColor #3A6BC4
+skinparam ActivityStartColor #3A6BC4
+skinparam ActivityEndColor #C0392B
+skinparam ActivityDiamondBackgroundColor #FFF9C4
+skinparam ActivityDiamondBorderColor #B8860B
+
+title Диаграмма деятельности — обработка входящего сообщения
+
+start
+
+if (Тип Update?) then (CallbackQuery)
+
+  if (Данные callback?) then (daily_report / yesterdays_report)
+    :Получить записи из БД за нужный день;
+    :Сформировать отчёт КБЖУ;
+    :Отправить отчёт с кнопкой "Редактировать";
+
+  elseif (edit) then
+    :Получить записи за сегодня из БД;
+    :Сгенерировать клавиатуру удаления;
+    :Отправить сообщение с кнопками;
+
+  elseif (edit:ID) then
+    :Удалить запись по ID из БД;
+    :Обновить клавиатуру редактирования;
+
+  elseif (edit_finished) then
+    :Убрать кнопки редактирования;
+    :Показать финальный отчёт;
+
+  else (choice:FOODNAME)
+    :Взять из pendingChoice выбранный продукт;
+    :Рассчитать КБЖУ порции;
+    :Сохранить запись в БД;
+    :Очистить pendingChoice;
+    :Отправить подтверждение;
+  endif
+
+elseif (Message — команда?) then
+
+  if (Команда?) then (/start)
+    :Установить состояние\nStateWaitingForFoodName;
+    :Отправить приветственное сообщение;
+  else (/menu)
+    :Отправить главное меню;
+  endif
+
+elseif (Message — текст?) then
+
+  if (Состояние = StateWaitingForFoodName?) then (нет)
+    :Игнорировать сообщение;
+  else (да)
+    :ParseFoodInput → name, weight;
+
+    if (Вес от 1 до 5000г?) then (нет)
+      :Сообщить об ошибке ввода;
+    else (да)
+      :FoodService.PrepareFoodEntry(name, weight);
+
+      if (Количество совпадений?) then (0)
+        :Сообщить "Продукт не найден";
+      elseif (1) then
+        :Рассчитать КБЖУ порции;
+        :Сохранить запись в БД;
+        :Отправить подтверждение с КБЖУ;
+      else (несколько)
+        :Сохранить варианты в pendingChoice;
+        :Отправить клавиатуру выбора продукта;
+      endif
+    endif
+  endif
+
+else (игнорировать)
+endif
+
+stop
+
+@enduml

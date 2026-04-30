@@ -1,0 +1,46 @@
+@startuml state
+skinparam StateBackgroundColor #EEF4FF
+skinparam StateBorderColor #3A6BC4
+skinparam ArrowColor #3A6BC4
+skinparam StateStartColor #3A6BC4
+skinparam StateEndColor #C0392B
+skinparam StateFontSize 13
+skinparam Nodesep 60
+skinparam Ranksep 60
+
+title Диаграмма состояний пользователя
+
+[*] --> ВводЕды : /start
+
+state "Ввод еды" as ВводЕды
+state "Выбор продукта" as ВыборПродукта
+state "Просмотр отчёта" as Отчёт
+state "Редактирование" as Редактирование
+
+ВводЕды --> ВыборПродукта : несколько совпадений
+ВыборПродукта --> ВводЕды : выбор сделан
+
+ВводЕды --> Отчёт : /menu → отчёт
+Отчёт --> ВводЕды : /start
+
+Отчёт --> Редактирование : "Редактировать"
+Редактирование --> Отчёт : "Готово"
+Редактирование --> Редактирование : удалить запись
+
+note bottom of ВводЕды
+  Состояние по умолчанию.
+  Пример ввода: "Гречка 200"
+end note
+
+note bottom of ВыборПродукта
+  Варианты хранятся
+  в pendingChoice[chatID]
+  до выбора пользователя
+end note
+
+note bottom of Редактирование
+  Кнопки удаления
+  каждой записи дня
+end note
+
+@enduml
