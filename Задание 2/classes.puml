@@ -9,6 +9,8 @@ skinparam Padding 6
 skinparam Nodesep 60
 skinparam Ranksep 80
 
+left to right direction
+
 title Диаграмма классов — Telegram-бот учёта питания
 
 package "Config" #F0F4FF {

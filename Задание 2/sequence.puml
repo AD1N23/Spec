@@ -9,6 +9,8 @@ skinparam NoteBackgroundColor #FFF9C4
 skinparam NoteBorderColor #B8860B
 skinparam SequenceGroupBackgroundColor #F0F4FF
 skinparam SequenceGroupBorderColor #7A9FD4
+skinparam ParticipantPadding 40
+skinparam BoxPadding 20
 
 title Диаграмма последовательности — ключевые сценарии бота
 

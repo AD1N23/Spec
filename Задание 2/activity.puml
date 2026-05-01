@@ -8,6 +8,8 @@ skinparam ActivityEndColor #C0392B
 skinparam ActivityDiamondBackgroundColor #FFF9C4
 skinparam ActivityDiamondBorderColor #B8860B
 
+left to right direction
+
 title Диаграмма деятельности — обработка входящего сообщения
 
 start

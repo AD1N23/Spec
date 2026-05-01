@@ -8,6 +8,8 @@ skinparam StateFontSize 13
 skinparam Nodesep 60
 skinparam Ranksep 60
 
+left to right direction
+
 title Диаграмма состояний пользователя
 
 [*] --> ВводЕды : /start
