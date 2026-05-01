@@ -15,66 +15,63 @@ skinparam BoxPadding 20
 title Диаграмма последовательности — ключевые сценарии бота
 
 actor "Пользователь" as User
-participant "Handler" as H
-participant "FoodService" as FS
-participant "Repository" as FR
-participant "MessageService" as MS
+participant "Бот" as H
+participant "Поиск продуктов" as FS
+participant "База данных" as DB
+participant "Сообщения" as MS
 
 == Сценарий 1: Добавление продукта (точное совпадение) ==
 
-User -> H : текст "Гречка 200"
-H -> H : ParseFoodInput()\n→ name="Гречка", weight=200
-H -> FS : PrepareFoodEntry("Гречка", 200)
-FS -> FS : findBestMatch() → точное совпадение
-FS -> FS : CalculatePortion(200, food)
-FS --> H : []FoodEntry{entry}
-H -> FR : SaveEntry(entry)
-FR --> H : nil
-H -> MS : SendSimpleMessage("✅ Гречка 200г — 272 ккал")
-MS --> User : подтверждение
+User -> H : отправляет текст "Гречка 200"
+H -> H : определяет название продукта\nи вес из текста сообщения
+H -> FS : ищет продукт "Гречка" в базе
+FS -> FS : находит точное совпадение\nи пересчитывает КБЖУ на 200г
+FS --> H : возвращает готовую запись
+H -> DB : сохраняет запись о приёме пищи
+DB --> H : подтверждает сохранение
+H -> MS : отправляет подтверждение с КБЖУ
+MS --> User : "✅ Гречка 200г — 272 ккал"
 
-== Сценарий 2: Выбор из нескольких совпадений ==
+== Сценарий 2: Несколько совпадений — выбор продукта ==
 
-User -> H : текст "Творог 100"
-H -> FS : PrepareFoodEntry("Творог", 100)
-FS -> FS : findBestMatch() → 3 совпадения
-FS --> H : []FoodEntry{творог 2%, 5%, 9%}
-H -> H : pendingChoice[chatID] = entries
-H -> MS : GenerateChoiceKeyboard(entries)
-MS --> User : кнопки выбора
+User -> H : отправляет текст "Творог 100"
+H -> FS : ищет продукт "Творог" в базе
+FS --> H : найдено 3 варианта:\nТворог 2%, 5%, 9%
+H -> H : запоминает варианты\nдля этого пользователя
+H -> MS : отправляет кнопки с вариантами
+MS --> User : кнопки выбора продукта
 
-User -> H : callback "choice:Творог 5%"
-H -> H : взять из pendingChoice
-H -> FS : CalculatePortion(100, food)
-FS --> H : порция
-H -> FR : SaveEntry(entry)
-FR --> H : nil
-H -> H : удалить pendingChoice[chatID]
-H -> MS : SendSimpleMessage("✅ Сохранено")
-MS --> User : подтверждение
+User -> H : нажимает "Творог 5%"
+H -> FS : пересчитывает КБЖУ\nТворога 5% на 100г
+FS --> H : готовая порция
+H -> DB : сохраняет запись о приёме пищи
+DB --> H : подтверждает сохранение
+H -> H : очищает запомненные варианты
+H -> MS : отправляет подтверждение
+MS --> User : "✅ Творог 5%, 100г сохранён"
 
-== Сценарий 3: Просмотр и редактирование отчёта ==
+== Сценарий 3: Просмотр отчёта и удаление записи ==
 
-User -> H : callback "daily_report"
-H -> FR : GetUserEntries(chatID, today)
-FR --> H : []FoodEntry
-H -> MS : GenerateDailyReport(entries)
+User -> H : нажимает "Отчёт за сегодня"
+H -> DB : запрашивает все записи\nпользователя за сегодня
+DB --> H : список записей о питании
+H -> MS : формирует текст отчёта\nс итогами по КБЖУ
 MS --> User : отчёт + кнопка "Редактировать"
 
-User -> H : callback "edit"
-H -> FR : GetUserEntries(chatID, today)
-FR --> H : []FoodEntry
-H -> MS : GenerateEditKeyboard(entries)
-MS --> User : список с кнопками удаления
+User -> H : нажимает "Редактировать"
+H -> DB : повторно запрашивает записи
+DB --> H : список записей
+H -> MS : формирует кнопки\nудаления для каждой записи
+MS --> User : список с кнопками ❌
 
-User -> H : callback "edit:42"
-H -> FR : RemoveEntry(42)
-FR --> H : nil
-H -> MS : обновить клавиатуру
+User -> H : нажимает ❌ у записи
+H -> DB : удаляет выбранную запись
+DB --> H : подтверждает удаление
+H -> MS : обновляет список кнопок
 MS --> User : обновлённый список
 
-User -> H : callback "edit_finished"
-H -> MS : убрать кнопки, показать итог
+User -> H : нажимает "Готово"
+H -> MS : убирает кнопки, показывает итог
 MS --> User : финальный отчёт
 
 @enduml

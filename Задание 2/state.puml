@@ -1,11 +1,16 @@
 @startuml state
-skinparam StateBackgroundColor #EEF4FF
+skinparam StateBackgroundColor #C8D8F8
 skinparam StateBorderColor #3A6BC4
+skinparam StateFontColor #1A1A2E
+skinparam StateFontSize 14
+skinparam StateFontStyle bold
 skinparam ArrowColor #3A6BC4
+skinparam ArrowFontSize 12
 skinparam StateStartColor #3A6BC4
 skinparam StateEndColor #C0392B
-skinparam StateFontSize 13
-skinparam Nodesep 60
+skinparam NoteBackgroundColor #FFF9C4
+skinparam NoteBorderColor #B8860B
+skinparam Nodesep 80
 skinparam Ranksep 60
 
 left to right direction
@@ -36,7 +41,6 @@ end note
 
 note bottom of ВыборПродукта
   Варианты хранятся
-  в pendingChoice[chatID]
   до выбора пользователя
 end note
 

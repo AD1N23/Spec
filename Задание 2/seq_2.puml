@@ -1,0 +1,36 @@
+@startuml seq_2
+skinparam SequenceArrowColor #3A6BC4
+skinparam SequenceLifeLineBorderColor #3A6BC4
+skinparam SequenceParticipantBackgroundColor #EEF4FF
+skinparam SequenceParticipantBorderColor #3A6BC4
+skinparam SequenceActorBackgroundColor #EEF4FF
+skinparam SequenceActorBorderColor #3A6BC4
+skinparam NoteBackgroundColor #FFF9C4
+skinparam NoteBorderColor #B8860B
+skinparam ParticipantPadding 40
+
+title Сценарий 2 — Несколько совпадений: выбор продукта
+
+actor "Пользователь" as User
+participant "Бот" as H
+participant "Поиск продуктов" as FS
+participant "База данных" as DB
+participant "Сообщения" as MS
+
+User -> H : отправляет текст "Творог 100"
+H -> FS : ищет продукт "Творог" в базе
+FS --> H : найдено 3 варианта:\nТворог 2%, 5%, 9%
+H -> H : запоминает варианты\nдля этого пользователя
+H -> MS : отправляет кнопки с вариантами
+MS --> User : кнопки выбора продукта
+
+User -> H : нажимает "Творог 5%"
+H -> FS : пересчитывает КБЖУ\nТворога 5% на 100г
+FS --> H : готовая порция
+H -> DB : сохраняет запись о приёме пищи
+DB --> H : подтверждает сохранение
+H -> H : очищает запомненные варианты
+H -> MS : отправляет подтверждение
+MS --> User : "✅ Творог 5%, 100г сохранён"
+
+@enduml

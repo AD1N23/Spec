@@ -1,0 +1,30 @@
+@startuml seq_1
+skinparam SequenceArrowColor #3A6BC4
+skinparam SequenceLifeLineBorderColor #3A6BC4
+skinparam SequenceParticipantBackgroundColor #EEF4FF
+skinparam SequenceParticipantBorderColor #3A6BC4
+skinparam SequenceActorBackgroundColor #EEF4FF
+skinparam SequenceActorBorderColor #3A6BC4
+skinparam NoteBackgroundColor #FFF9C4
+skinparam NoteBorderColor #B8860B
+skinparam ParticipantPadding 40
+
+title Сценарий 1 — Добавление продукта (точное совпадение)
+
+actor "Пользователь" as User
+participant "Бот" as H
+participant "Поиск продуктов" as FS
+participant "База данных" as DB
+participant "Сообщения" as MS
+
+User -> H : отправляет текст "Гречка 200"
+H -> H : определяет название продукта\nи вес из текста сообщения
+H -> FS : ищет продукт "Гречка" в базе
+FS -> FS : находит точное совпадение\nи пересчитывает КБЖУ на 200г
+FS --> H : возвращает готовую запись
+H -> DB : сохраняет запись о приёме пищи
+DB --> H : подтверждает сохранение
+H -> MS : отправляет подтверждение с КБЖУ
+MS --> User : "✅ Гречка 200г — 272 ккал"
+
+@enduml

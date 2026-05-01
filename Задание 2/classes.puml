@@ -120,6 +120,7 @@ App *--> Handler #2E8B57
 App *--> PostgresFoodRepo #2E8B57
 App *--> FoodService #2E8B57
 App *--> KeyboardService #2E8B57
+App *--> Config #2E8B57
 Config *--> BotConfig #2E8B57
 Config *--> DBConfig #2E8B57
 

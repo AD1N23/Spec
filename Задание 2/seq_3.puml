@@ -1,0 +1,41 @@
+@startuml seq_3
+skinparam SequenceArrowColor #3A6BC4
+skinparam SequenceLifeLineBorderColor #3A6BC4
+skinparam SequenceParticipantBackgroundColor #EEF4FF
+skinparam SequenceParticipantBorderColor #3A6BC4
+skinparam SequenceActorBackgroundColor #EEF4FF
+skinparam SequenceActorBorderColor #3A6BC4
+skinparam NoteBackgroundColor #FFF9C4
+skinparam NoteBorderColor #B8860B
+skinparam ParticipantPadding 40
+
+title Сценарий 3 — Просмотр отчёта и редактирование
+
+actor "Пользователь" as User
+participant "Бот" as H
+participant "База данных" as DB
+participant "Сообщения" as MS
+
+User -> H : нажимает "Отчёт за сегодня"
+H -> DB : запрашивает все записи\nпользователя за сегодня
+DB --> H : список записей о питании
+H -> MS : формирует текст отчёта\nс итогами по КБЖУ
+MS --> User : отчёт + кнопка "Редактировать"
+
+User -> H : нажимает "Редактировать"
+H -> DB : повторно запрашивает записи
+DB --> H : список записей
+H -> MS : формирует кнопки удаления\nдля каждой записи
+MS --> User : список с кнопками ❌
+
+User -> H : нажимает ❌ у записи
+H -> DB : удаляет выбранную запись
+DB --> H : подтверждает удаление
+H -> MS : обновляет список кнопок
+MS --> User : обновлённый список
+
+User -> H : нажимает "Готово"
+H -> MS : убирает кнопки, показывает итог
+MS --> User : финальный отчёт
+
+@enduml

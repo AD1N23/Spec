@@ -3,82 +3,83 @@ skinparam ActivityBackgroundColor #EEF4FF
 skinparam ActivityBorderColor #3A6BC4
 skinparam ActivityFontSize 13
 skinparam ArrowColor #3A6BC4
-skinparam ActivityStartColor #3A6BC4
+skinparam ActivityStartColor #1A3A6B
 skinparam ActivityEndColor #C0392B
 skinparam ActivityDiamondBackgroundColor #FFF9C4
 skinparam ActivityDiamondBorderColor #B8860B
-
-left to right direction
+skinparam ActivityDiamondFontSize 12
+skinparam SwimlaneBorderColor #3A6BC4
+skinparam SwimlaneBorderThickness 2
+skinparam SwimlaneWidth 300
 
 title Диаграмма деятельности — обработка входящего сообщения
 
+|#D6E4FF| Получение Update |
 start
-
-if (Тип Update?) then (CallbackQuery)
-
-  if (Данные callback?) then (daily_report / yesterdays_report)
-    :Получить записи из БД за нужный день;
+:Получить Update от Telegram;
+if (Тип Update?) then (нажата кнопка)
+  |#D6F5E3| Обработка нажатой кнопки |
+  if (Какая кнопка нажата?) then (запрос отчёта)
+    :Загрузить записи за нужный день;
     :Сформировать отчёт КБЖУ;
-    :Отправить отчёт с кнопкой "Редактировать";
-
-  elseif (edit) then
-    :Получить записи за сегодня из БД;
-    :Сгенерировать клавиатуру удаления;
-    :Отправить сообщение с кнопками;
-
-  elseif (edit:ID) then
-    :Удалить запись по ID из БД;
-    :Обновить клавиатуру редактирования;
-
-  elseif (edit_finished) then
-    :Убрать кнопки редактирования;
+    :Показать отчёт с кнопкой "Редактировать";
+    kill
+  elseif (начать редактирование) then
+    :Загрузить записи за сегодня;
+    :Показать список с кнопками удаления;
+    kill
+  elseif (удалить запись) then
+    :Удалить выбранную запись из дневника;
+    :Обновить список кнопок;
+    kill
+  elseif (завершить редактирование) then
+    :Убрать кнопки удаления;
     :Показать финальный отчёт;
-
-  else (choice:FOODNAME)
-    :Взять из pendingChoice выбранный продукт;
-    :Рассчитать КБЖУ порции;
-    :Сохранить запись в БД;
-    :Очистить pendingChoice;
-    :Отправить подтверждение;
+    kill
+  else (выбор продукта\nиз нескольких вариантов)
+    :Взять выбранный пользователем продукт;
+    :Рассчитать КБЖУ на указанный вес;
+    :Сохранить запись в дневник питания;
+    :Отправить подтверждение пользователю;
+    kill
   endif
-
-elseif (Message — команда?) then
-
-  if (Команда?) then (/start)
-    :Установить состояние\nStateWaitingForFoodName;
+elseif (введена команда) then
+  |#FFF3CD| Обработка команды |
+  if (Какая команда?) then (/start)
+    :Перевести бота в режим ввода еды;
     :Отправить приветственное сообщение;
+    kill
   else (/menu)
-    :Отправить главное меню;
+    :Показать главное меню с кнопками;
+    kill
   endif
-
-elseif (Message — текст?) then
-
-  if (Состояние = StateWaitingForFoodName?) then (нет)
-    :Игнорировать сообщение;
+else (получен текст)
+  |#FFE8F0| Обработка текстового сообщения |
+  if (Бот ждёт ввод еды?) then (нет — игнорировать)
+    :Пропустить сообщение без ответа;
+    kill
   else (да)
-    :ParseFoodInput → name, weight;
-
-    if (Вес от 1 до 5000г?) then (нет)
+    :Определить название продукта и вес\nиз текста сообщения;
+    if (Вес указан корректно\n(от 1 до 5000г)?) then (нет)
       :Сообщить об ошибке ввода;
+      kill
     else (да)
-      :FoodService.PrepareFoodEntry(name, weight);
-
-      if (Количество совпадений?) then (0)
-        :Сообщить "Продукт не найден";
-      elseif (1) then
-        :Рассчитать КБЖУ порции;
-        :Сохранить запись в БД;
+      :Найти продукт в базе питания;
+      if (Сколько совпадений найдено?) then (ни одного)
+        :Сообщить что продукт не найден;
+        kill
+      elseif (одно) then
+        :Рассчитать КБЖУ на указанный вес;
+        :Сохранить запись в дневник питания;
         :Отправить подтверждение с КБЖУ;
+        kill
       else (несколько)
-        :Сохранить варианты в pendingChoice;
-        :Отправить клавиатуру выбора продукта;
+        :Сохранить все варианты для выбора;
+        :Показать кнопки с вариантами продукта;
+        kill
       endif
     endif
   endif
-
-else (игнорировать)
 endif
-
-stop
 
 @enduml
