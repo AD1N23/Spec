@@ -16,7 +16,7 @@ title Диаграмма последовательности — ключевы
 
 actor "Пользователь" as User
 participant "Бот" as H
-participant "Поиск продуктов" as FS
+participant "Программа" as FS
 participant "База данных" as DB
 participant "Сообщения" as MS
 

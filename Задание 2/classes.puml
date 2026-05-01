@@ -1,50 +1,113 @@
 @startuml classes
 skinparam ClassBackgroundColor #EEF4FF
 skinparam ClassBorderColor #3A6BC4
-skinparam ClassFontSize 14
-skinparam ClassFontStyle bold
+skinparam ClassFontSize 13
+skinparam ClassAttributeFontSize 12
 skinparam PackageBackgroundColor #F5F8FF
 skinparam PackageBorderColor #7A9FD4
-skinparam PackageFontSize 13
-skinparam Nodesep 50
-skinparam Ranksep 60
+skinparam Padding 6
+skinparam Nodesep 60
+skinparam Ranksep 80
 
 left to right direction
 
 title Диаграмма классов — Telegram-бот учёта питания
 
 package "Config" #F0F4FF {
-  class Config
-  class BotConfig
-  class DBConfig
+  class Config {
+    +Bot : BotConfig
+    +DB  : DBConfig
+  }
+  class BotConfig {
+    +Token : string
+  }
+  class DBConfig {
+    +Host, Port, Username\nPassword, DBName : string
+  }
 }
 
 package "Models" #F0FFF4 {
-  class FoodEntry
-  class Food
-  enum UserState
+  class FoodEntry {
+    +ID            : int
+    +ChatID        : int64
+    +FoodName      : string
+    +Calories      : int
+    +Proteins      : float64
+    +Fats          : float64
+    +Carbohydrates : float64
+    +Portion       : int
+    +Date          : time.Time
+  }
+  class Food {
+    +Calories      : uint16
+    +Proteins      : uint16
+    +Fats          : uint16
+    +Carbohydrates : uint16
+  }
+  enum UserState {
+    StateNone
+    StateWaitingForFoodName
+  }
 }
 
 package "Repository" #FFF8F0 {
-  interface FoodRepository
-  class PostgresFoodRepo
-  class MemoryFoodRepo
+  interface FoodRepository {
+    +SaveEntry(entry: *FoodEntry) : error
+    +GetUserEntries(chatID: int64, date: *time.Time) : []*FoodEntry, error
+    +RemoveEntry(id: int) : error
+  }
+  class PostgresFoodRepo {
+    -db : *sql.DB
+  }
+  class MemoryFoodRepo {
+    -mu      : sync.Mutex
+    -entries : map[int64][]FoodEntry
+    -nextID  : int
+  }
 }
 
 package "Services" #FFF0F8 {
-  interface MessageService
-  class TelegramMessageService
-  class KeyboardService
-  class FoodService
+  interface MessageService {
+    +SendSimpleMessage(...)
+    +DeleteMessage(...)
+    +GenerateDailyReport(...) : string
+    +EditLogMessage(...)
+  }
+  class TelegramMessageService {
+    -bot           : *tgbotapi.BotAPI
+    -logMessageIDs : map[int64]int
+  }
+  class KeyboardService {
+    +StartMenu() : InlineKeyboardMarkup
+    +AddEditButton() : InlineKeyboardMarkup
+    +GenerateEditKeyboard(...) : InlineKeyboardMarkup
+    +GenerateChoiceKeyboard(...) : InlineKeyboardMarkup
+  }
+  class FoodService {
+    -foodData : map[string]Food
+    +PrepareFoodEntry(...) : []FoodEntry, error
+    -findBestMatch(input: string) : string, int
+    -CalculatePortion(weight: int, base: Food) : Food
+  }
 }
 
 package "Handlers" #F5FFF5 {
-  class Handler
-  class Parser
+  class Handler {
+    -userStates    : map[int64]UserState
+    -pendingChoice : map[int64][]FoodEntry
+    +CommandHandler(update: Update)
+    +CallbackHandler(update: Update)
+    +HandleTextMessage(update: Update)
+  }
+  class Parser {
+    +ParseFoodInput(text: string) : string, int
+  }
 }
 
 package "App" #F8F0FF {
-  class App
+  class App {
+    +BotRun(updates: UpdatesChannel)
+  }
 }
 
 ' ── Реализация интерфейсов (синий) ───────────────────
