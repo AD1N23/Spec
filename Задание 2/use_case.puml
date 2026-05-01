@@ -1,4 +1,6 @@
 @startuml use_case
+left to right direction
+
 skinparam ActorBackgroundColor #EEF4FF
 skinparam ActorBorderColor #3A6BC4
 skinparam UsecaseBackgroundColor #EEF4FF
@@ -6,8 +8,8 @@ skinparam UsecaseBorderColor #3A6BC4
 skinparam ArrowColor #3A6BC4
 skinparam PackageBorderColor #7A9FD4
 skinparam PackageFontSize 14
-skinparam Nodesep 40
-skinparam Ranksep 50
+skinparam Nodesep 30
+skinparam Ranksep 60
 
 title Диаграмма вариантов использования — Telegram-бот учёта питания
 
