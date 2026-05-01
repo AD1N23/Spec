@@ -1,0 +1,189 @@
+<mxfile host="diagrams.net">
+  <diagram name="Telegram Bot Wireframe">
+    <mxGraphModel dx="1422" dy="762" grid="0" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ═══════════════════════════════════════════════════ -->
+        <!-- ЗАГОЛОВКИ СЦЕНАРИЕВ -->
+        <!-- ═══════════════════════════════════════════════════ -->
+
+        <mxCell id="t1" value="Сценарий 1 — Добавление еды (1 совпадение)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;fontColor=#3A6BC4;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="360" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="t2" value="Сценарий 2 — Выбор из нескольких" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;fontColor=#3A6BC4;" vertex="1" parent="1">
+          <mxGeometry x="460" y="20" width="360" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="t3" value="Сценарий 3 — Отчёт и редактирование" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;fontColor=#3A6BC4;" vertex="1" parent="1">
+          <mxGeometry x="880" y="20" width="360" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════ -->
+        <!-- СЦЕНАРИЙ 1 — ДОБАВЛЕНИЕ ЕДЫ -->
+        <!-- ═══════════════════════════════════════════════════ -->
+
+        <!-- Телефон 1 -->
+        <mxCell id="ph1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e1e2e;strokeColor=#444466;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="360" height="620" as="geometry" />
+        </mxCell>
+
+        <!-- Шапка чата -->
+        <mxCell id="ph1_header" value="🤖  FoodBot" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2A2A3E;strokeColor=none;fontColor=#FFFFFF;fontSize=13;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="360" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- Сообщение: /start -->
+        <mxCell id="s1_m1" value="/start" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3A6BC4;strokeColor=none;fontColor=#FFFFFF;fontSize=12;align=right;" vertex="1" parent="1">
+          <mxGeometry x="260" y="120" width="120" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Ответ бота: приветствие -->
+        <mxCell id="s1_m2" value="Привет! Отправь название продукта и вес.&#xa;Например: Гречка 200" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2A2A3E;strokeColor=none;fontColor=#DDDDDD;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="50" y="164" width="220" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- Сообщение пользователя -->
+        <mxCell id="s1_m3" value="Гречка 200" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3A6BC4;strokeColor=none;fontColor=#FFFFFF;fontSize=12;align=right;" vertex="1" parent="1">
+          <mxGeometry x="260" y="224" width="120" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Ответ бота: сохранено -->
+        <mxCell id="s1_m4" value="✅ Гречка, 200г сохранена&#xa;&#xa;🔥 Калории: 272 ккал&#xa;🥩 Белки: 26г&#xa;🫒 Жиры: 6г&#xa;🌾 Углеводы: 136г" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2A2A3E;strokeColor=none;fontColor=#DDDDDD;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="50" y="268" width="220" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Сообщение пользователя: второй продукт -->
+        <mxCell id="s1_m5" value="Куриная грудка 150" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3A6BC4;strokeColor=none;fontColor=#FFFFFF;fontSize=12;align=right;" vertex="1" parent="1">
+          <mxGeometry x="230" y="390" width="150" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Ответ бота: второй продукт -->
+        <mxCell id="s1_m6" value="✅ Куриная грудка, 150г сохранена&#xa;&#xa;🔥 Калории: 165 ккал&#xa;🥩 Белки: 34г&#xa;🫒 Жиры: 3г&#xa;🌾 Углеводы: 0г" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2A2A3E;strokeColor=none;fontColor=#DDDDDD;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="50" y="434" width="220" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Подпись -->
+        <mxCell id="s1_note" value="Бот ждёт следующий ввод" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontColor=#888888;fontSize=11;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="560" width="360" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════ -->
+        <!-- СЦЕНАРИЙ 2 — ВЫБОР ИЗ НЕСКОЛЬКИХ -->
+        <!-- ═══════════════════════════════════════════════════ -->
+
+        <!-- Телефон 2 -->
+        <mxCell id="ph2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e1e2e;strokeColor=#444466;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="460" y="60" width="360" height="620" as="geometry" />
+        </mxCell>
+
+        <!-- Шапка -->
+        <mxCell id="ph2_header" value="🤖  FoodBot" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2A2A3E;strokeColor=none;fontColor=#FFFFFF;fontSize=13;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="460" y="60" width="360" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- Сообщение пользователя -->
+        <mxCell id="s2_m1" value="Творог 100" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3A6BC4;strokeColor=none;fontColor=#FFFFFF;fontSize=12;align=right;" vertex="1" parent="1">
+          <mxGeometry x="670" y="120" width="130" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Ответ: несколько вариантов -->
+        <mxCell id="s2_m2" value="Найдено несколько вариантов.&#xa;Выберите нужный:" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2A2A3E;strokeColor=none;fontColor=#DDDDDD;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="164" width="220" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- Кнопки выбора -->
+        <mxCell id="s2_btn1" value="Творог 2%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E4A7A;strokeColor=#3A6BC4;fontColor=#FFFFFF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="470" y="222" width="160" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="s2_btn2" value="Творог 5%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E4A7A;strokeColor=#3A6BC4;fontColor=#FFFFFF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="640" y="222" width="160" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="s2_btn3" value="Творог 9%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E4A7A;strokeColor=#3A6BC4;fontColor=#FFFFFF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="470" y="266" width="160" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- Разделитель -->
+        <mxCell id="s2_div" value="" style="line;strokeColor=#444466;" vertex="1" parent="1">
+          <mxGeometry x="470" y="318" width="330" height="10" as="geometry" />
+        </mxCell>
+
+        <!-- После выбора -->
+        <mxCell id="s2_chosen" value="Творог 5%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3A6BC4;strokeColor=none;fontColor=#FFFFFF;fontSize=12;align=right;" vertex="1" parent="1">
+          <mxGeometry x="670" y="336" width="110" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s2_m3" value="✅ Творог 5%, 100г сохранён&#xa;&#xa;🔥 Калории: 121 ккал&#xa;🥩 Белки: 17г&#xa;🫒 Жиры: 5г&#xa;🌾 Углеводы: 4г" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2A2A3E;strokeColor=none;fontColor=#DDDDDD;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="380" width="220" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s2_note" value="pendingChoice очищается после выбора" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontColor=#888888;fontSize=11;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="460" y="560" width="360" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════ -->
+        <!-- СЦЕНАРИЙ 3 — ОТЧЁТ И РЕДАКТИРОВАНИЕ -->
+        <!-- ═══════════════════════════════════════════════════ -->
+
+        <!-- Телефон 3 -->
+        <mxCell id="ph3" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e1e2e;strokeColor=#444466;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="880" y="60" width="360" height="620" as="geometry" />
+        </mxCell>
+
+        <!-- Шапка -->
+        <mxCell id="ph3_header" value="🤖  FoodBot" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2A2A3E;strokeColor=none;fontColor=#FFFFFF;fontSize=13;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="880" y="60" width="360" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- /menu -->
+        <mxCell id="s3_m1" value="/menu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3A6BC4;strokeColor=none;fontColor=#FFFFFF;fontSize=12;align=right;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="120" width="110" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Меню -->
+        <mxCell id="s3_m2" value="Выберите действие:" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2A2A3E;strokeColor=none;fontColor=#DDDDDD;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="890" y="164" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_btn_today" value="📊 Отчёт за сегодня" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E4A7A;strokeColor=#3A6BC4;fontColor=#FFFFFF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="890" y="204" width="330" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_btn_yest" value="📅 Отчёт за вчера" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E4A7A;strokeColor=#3A6BC4;fontColor=#FFFFFF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="890" y="248" width="330" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- Отчёт (редактирование того же сообщения) -->
+        <mxCell id="s3_edit_label" value="↓ то же сообщение обновляется" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontColor=#888888;fontSize=11;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="880" y="290" width="360" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s3_report" value="📋 Отчёт за сегодня&#xa;&#xa;• Овсянка 100г — 88 ккал&#xa;• Куриная грудка 150г — 165 ккал&#xa;• Гречка 200г — 272 ккал&#xa;──────────────────&#xa;🔥 Итого: 525 ккал&#xa;🥩 Белки: 62г  🫒 Жиры: 8г  🌾 УВ: 118г" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2A2A3E;strokeColor=none;fontColor=#DDDDDD;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="890" y="314" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_btn_edit" value="✏️ Редактировать" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E4A7A;strokeColor=#3A6BC4;fontColor=#FFFFFF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="890" y="452" width="330" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- Режим редактирования -->
+        <mxCell id="s3_edit_label2" value="↓ то же сообщение обновляется" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontColor=#888888;fontSize=11;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="880" y="492" width="360" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s3_del1" value="❌ Овсянка 100г" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E4A7A;strokeColor=#C0392B;fontColor=#FFFFFF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="890" y="516" width="330" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_del2" value="❌ Куриная грудка 150г" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E4A7A;strokeColor=#C0392B;fontColor=#FFFFFF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="890" y="556" width="330" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_del3" value="❌ Гречка 200г" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E4A7A;strokeColor=#C0392B;fontColor=#FFFFFF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="890" y="596" width="330" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_done" value="✅ Готово" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1A5C2A;strokeColor=#2E8B57;fontColor=#FFFFFF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="890" y="636" width="330" height="32" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
