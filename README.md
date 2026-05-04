@@ -3,6 +3,7 @@
 Репозиторий содержит выполненные задания по курсу. Все диаграммы созданы с помощью **PlantUML** (расширение для VS Code) и **draw.io**.
 
 ---
+## [Google Drive с презентацией](https://drive.google.com/drive/folders/1hf-r3QOS_Uz_6N309sHUZjbbUV7sJp3H?usp=drive_link)
 
 ## Задание 1 — Диаграмма деятельности: подготовка к защите ВКР
 
@@ -30,6 +31,21 @@
 **Предметная область:** Telegram-бот для ведения персонального дневника питания. Пользователь вводит название продукта и вес, бот находит его в базе (~75 наименований), рассчитывает КБЖУ для порции и сохраняет запись в PostgreSQL. Реализован на Go.
 
 ### Диаграммы
+
+## Classes
+![Classes](classes.png)
+
+## Use Cases
+![Use Cases](use_cases.png)
+
+## Activity
+![Activity](activity.png)
+
+## State
+![State](state.png)
+
+## Sequence
+![Sequence](seq.png)
 
 | Файл | Тип | Сущность | Описание |
 |---|---|---|---|
